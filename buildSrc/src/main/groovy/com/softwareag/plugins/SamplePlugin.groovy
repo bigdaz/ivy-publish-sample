@@ -13,6 +13,7 @@ import org.gradle.api.publish.plugins.PublishingPlugin
 import org.gradle.api.artifacts.Configuration
 import org.gradle.api.artifacts.ModuleDependency
 import org.gradle.api.artifacts.PublishArtifact
+import org.gradle.api.artifacts.ProjectDependency;
 
 class PluginExtension {
     def buildVersion = "unspecified"
@@ -27,6 +28,7 @@ class SamplePlugin implements Plugin<Project> {
 		//Apply Ivy Publish Plugin
 		project.plugins.apply(IvyPublishPlugin)
 		configurePublish(project)
+        configureProjectDependencies(project)
 	}
  
 	private void configureVersion(Project project) {
@@ -93,5 +95,13 @@ class SamplePlugin implements Plugin<Project> {
 			}
 		}
 	}
+
+    def configureProjectDependencies(Project project) {
+        project.configurations.all { Configuration conf ->
+            conf.dependencies.withType(ProjectDependency) { ProjectDependency dep ->
+                project.evaluationDependsOn dep.dependencyProject.path
+            }
+        }
+    }
 }
 	

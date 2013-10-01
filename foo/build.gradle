@@ -7,5 +7,5 @@ dependencies {
 
 repositories { mavenCentral() }
 
-setup.buildVersion="1.0.0"
+setup.buildVersion="2.0.0"
 
