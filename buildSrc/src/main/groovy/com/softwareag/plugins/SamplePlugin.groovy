@@ -23,7 +23,7 @@ class SamplePlugin implements Plugin<Project> {
 
 	public void apply(Project project) {
 		project.extensions.create("setup", PluginExtension)
-			configureVersion(project)
+		configureVersion(project)
 		//Apply Ivy Publish Plugin
 		project.plugins.apply(IvyPublishPlugin)
 		configurePublish(project)
@@ -38,11 +38,6 @@ class SamplePlugin implements Plugin<Project> {
 		project.publishing {
 		publications {
 				ivy(IvyPublication) { IvyPublication ivyPublication ->
-					//We need all artifacts to be available and then to configure ivyPublication
-					if (!project.getState().getExecuted()) {
-						throw new IllegalStateException("Accessing the ivy publication before project '$project.path' is evaluated is not allowed.")	
-					}
-					
 					Map ivyArtifacts = [:]
 					Map ivyDependencies = [:]
 					
@@ -77,9 +72,7 @@ class SamplePlugin implements Plugin<Project> {
 					}
 					
 					ivyDependencies.each { ModuleDependency moduleDependency, conf ->
-						//ivyPublication.dependencies.add(new DefaultIvyDependency(moduleDependency.getGroup(),moduleDependency.getName(),moduleDependency.getVersion(), conf + '->' + moduleDependency.configuration))
-						//Use with  Gradle 1.5
-						ivyPublication.dependencies.add(new DefaultIvyDependency(moduleDependency, conf + '->' + moduleDependency.configuration))
+						ivyPublication.dependencies.add(new DefaultIvyDependency(moduleDependency.getGroup(),moduleDependency.getName(),moduleDependency.getVersion(), conf + '->' + moduleDependency.configuration))
 					}
 
 					
