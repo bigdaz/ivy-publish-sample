@@ -1,0 +1,11 @@
+apply plugin: 'java'
+apply plugin: com.softwareag.plugins.SamplePlugin
+
+dependencies { 
+	compile 'commons-collections:commons-collections:3.2'
+}
+
+repositories { mavenCentral() }
+
+setup.buildVersion="1.0.0"
+

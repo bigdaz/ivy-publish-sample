@@ -1,0 +1,9 @@
+rootProject.name = 'ivysample'
+
+include 'ivysample-bar'
+include 'ivysample-foo'
+
+rootProject.children.each{ project ->
+    String fileBaseName = project.name.replaceFirst(/$rootProject.name-/, "").replaceAll("\\p{Upper}") { "-${it.toLowerCase()}" }
+        project.projectDir = new File(settingsDir, "$fileBaseName")
+}

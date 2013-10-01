@@ -1,0 +1,8 @@
+apply plugin: 'java'
+apply plugin: com.softwareag.plugins.SamplePlugin
+
+dependencies {
+	compile project(':ivysample-foo') 
+}
+
+setup.buildVersion="1.0.0"
