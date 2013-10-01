@@ -32,6 +32,7 @@ class SamplePlugin implements Plugin<Project> {
 	private void configureVersion(Project project) {
 		project.afterEvaluate {
 			project.version = project.setup.buildVersion
+            project.publishing.publications.ivy.revision = project.setup.buildVersion
 		}
 	}
 	private void configurePublish(Project project) {
